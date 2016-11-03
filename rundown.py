@@ -5,6 +5,7 @@ import psycopg2
 from psycopg2.extensions import AsIs, ISOLATION_LEVEL_AUTOCOMMIT
 
 import nlcd
+import secret
 
 def loader(path, table_name, mode, srid):
     shp2pgsql_command = " ".join([shp2pgsql_path, mode, "-s {}".format(srid),
@@ -24,8 +25,9 @@ def reproject(table_name, geom_type, srid):
 
 ### DB Settings ###
 DB = 'data2'
-USER = 'postgres'
-PW = 'geografio'
+USER = secret.USER
+PW = secret.PW
+HOST = secret.HOST
 
 
 ### Other Settings ###
@@ -34,7 +36,7 @@ raster2pgsql_path = 'C:\\"Program Files"\\PostgreSQL\\9.5\\bin\\raster2pgsql.exe
 shp2pgsql_path = 'C:\\"Program Files"\\PostgreSQL\\9.5\\bin\\shp2pgsql.exe'
 
 ### Create a Database ###
-conn = psycopg2.connect("dbname=postgres user={} password={}".format(USER, PW))
+conn = psycopg2.connect("dbname=postgres host='{}' user={} password={}".format(HOST, USER, PW))
 conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 cursor = conn.cursor()
 
@@ -44,7 +46,7 @@ del cursor
 del conn
 
 ### Spatially Enable Database ###
-conn = psycopg2.connect("dbname={} user={} password={}".format(DB, USER, PW))
+conn = psycopg2.connect("dbname={} host='{}' user={} password={}".format(DB, HOST, USER, PW))
 cursor = conn.cursor()
 
 cursor.execute("""CREATE EXTENSION IF NOT EXISTS postgis;""")
