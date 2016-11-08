@@ -104,7 +104,22 @@ with open('data\\census\\tabular\\population\\1990\\GA_County_1990_Population.cs
     cursor.copy_expert(sql=copy_sql, file=f)
     conn.commit()
 
+
+cursor.execute("""CREATE TABLE tract_1990_pop
+                 (gisjoin varchar(40), year integer, tracta integer, county varchar(40), countya varchar(40), divisiona varchar(40),
+                  msa_cmsaa varchar(40), pmsaa varchar(40), regiona varchar(40), state varchar(40), statea varchar(40),
+                  anpsadpi varchar(60), et1001 integer)""")
+
+copy_sql = """
+           COPY tract_1990_pop FROM stdin WITH CSV HEADER
+           DELIMITER as ','
+           """
+with open('data\\census\\tabular\\population\\1990\\GA_Tract_1990_Population.csv', 'r') as f:
+    cursor.copy_expert(sql=copy_sql, file=f)
+    conn.commit()
+
 ### Spatial ###
+    
 
 ### Load block group 1990
 loader('data\\census\\spatial\\GA_blck_grp_1990_huc8.shp',
