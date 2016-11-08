@@ -24,7 +24,7 @@ def reproject(table_name, geom_type, srid):
     conn.commit()
 
 ### DB Settings ###
-DB = 'data2'
+DB = 'data3'
 USER = secret.USER
 PW = secret.PW
 HOST = secret.HOST
@@ -124,41 +124,83 @@ loader('data\\census\\spatial\\GA_blck_grp_2010_huc8.shp',
        '-c',
        102003)
 
+# ####load tracts 1990
+loader('data\\census\\spatial\\GA_tract_1990_huc8.shp',
+       "tract_1990",
+       '-c',
+       102003)
+
+
+# ###load tracts 2000
+loader('data\\census\\spatial\\GA_tract_2000_huc8.shp',
+       "tract_2000",
+       '-c',
+       102003)
+
+# ###load tracts 2010
+loader('data\\census\\spatial\\GA_tract_2010_huc8.shp',
+       "tract_2010",
+       '-c',
+       102003)
+
+# ###load county 1990
+loader('data\\census\\spatial\\GA_county_1990_huc8.shp',
+       "county_1990",
+       '-c',
+       102003)
+
+# ###load county 2000
+loader('data\\census\\spatial\\GA_county_2000_huc8.shp',
+       "county_2000",
+       '-c',
+       102003)
+
+# ###load county 2010
+loader('data\\census\\spatial\\GA_county_2010_huc8.shp',
+       "county_2010",
+       '-c',
+       102003)
+
+# ###load block 1990
+loader('data\\census\\spatial\\GA_blck_1990_huc8.shp',
+       "block_1990",
+       '-c',
+       102003)
+
+# ####load block 2000
+loader('data\\census\\spatial\\GA_blck_2000_huc8.shp',
+       "block_2000",
+       '-c',
+       102003)
+
+# ###load block 2010
+loader('data\\census\\spatial\\GA_blck_2010_huc8.shp',
+       "block_2010",
+       '-c',
+       102003)
+       
+
 
 reprojects = [('blckgroup_1990', 'MultiPolygon', 96630),
               ('blckgroup_2000', 'MultiPolygon', 96630),
-              ('blckgroup_2010', 'MultiPolygon', 96630)]
+              ('blckgroup_2010', 'MultiPolygon', 96630),
+              ('tract_1990', 'MultiPolygon', 96630),
+              ('tract_2000', 'MultiPolygon', 96630),
+              ('tract_2010', 'MultiPolygon', 96630),
+              ('county_1990', 'MultiPolygon', 96630),
+              ('county_2000', 'MultiPolygon', 96630),
+              ('county_2010', 'MultiPolygon', 96630),
+              ('block_1990', 'MultiPolygon', 96630),
+              ('block_2000', 'MultiPolygon', 96630),
+              ('block_2010', 'MultiPolygon', 96630)]
 
 for line in reprojects:
     reproject(line[0], line[1], line[2])
 
 
-#####load block 1990
-##census_load('data\\GA_blck_1990_huc8.shp', "blck_1990")
 
-######load block 2000
-##census_load('data\\GA_blck_2000_huc8.shp', "blck_2000")
 
-# ###load block 2010\
-# census_load('data\\GA_blck_2010_huc8.shp', "blck_2010")
-#
-# ####load tracts 1990
-# census_load('data\\GA_tract_1990_huc8.shp', "tract_1990")
-#
-# ###load tracts 2000
-# census_load('data\\GA_tract_2000_huc8.shp', "tract_2000")
-#
-# ###load tracts 2010
-# census_load('data\\GA_tract_2010_huc8.shp', "tract_2010")
-#
-# ###load county 1990
-# census_load('data\\GA_county_1990_huc8.shp', "county_1990")
-#
-# ###load county 2000
-# census_load('data\\GA_county_2000_huc8.shp', "county_2000")
-#
-# ###load county 2010
-# census_load('data\\GA_county_2010_huc8.shp', "county_2010")
+
 
 data = [('data\\nhd\\HUC_8.shp', 'huc', '-c', 4926),
         ('data\\nhd\\HUC_10.shp', 'huc', '-a', 4926),
