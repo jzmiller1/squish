@@ -137,25 +137,26 @@ for line in reprojects:
 
 data = [('data\\nhd\\HUC_8.shp', 'huc', '-c', 4926),
         ('data\\nhd\\HUC_10.shp', 'huc', '-a', 4926),
-        ('data\\nhd\\HUC_12.shp', 'huc', '-a', 4926),
-        ('data\\nhd\\Catchments.shp', 'catchments', '-c', 4926),
-        ('data\\nhd\\Gage.shp', 'gage', '-c', 4269),
-        ('data\\nhd\\NHDP_Flowlines.shp', 'nhdp_flowlines', '-c', 4269),
         ('data\\nhd\\NHD_Flowlines.shp', 'nhd_flowlines', '-c', 4926),
-        ('data\\nhd\\nhd_p_waterbodies.shp', 'nhdp_waterbodies', '-c', 4269),
-        ('data\\nhd\\NHD_Waterbodies.shp', 'nhd_waterbodies', '-c', 4269)]
+        ('data\\nhd\\Gage.shp', 'gages', '-c', 4926),
+        ('data\\nhd\\Catchments.shp', 'catchments', '-c', 4926),
+        ('data\\nhd\\HUC_12.shp', 'huc', '-a', 4926),
+        ('data\\nhd\\NHD_Waterbodies.shp', 'nhd_waterbodies', '-c', 4926),
+        ('data\\nhd\\nhd_p_waterbodies.shp', 'nhdp_waterbodies', '-c', 4926),
+        ('data\\nhd\\NHDP_Flowlines.shp', 'nhdp_flowlines', '-c', 4926)]
 
 for line in data:
     loader(line[0], line[1], line[2], line[3])
 
 reprojects = [('huc', 'MultiPolygon', 96630),
-              ('nhd_flowlines', 'MultiLineString', 96630)]
+              ('nhd_flowlines', 'MultiLineString', 96630),
+              ('nhdp_flowlines', 'MultiLineStringZM', 96630),
+              ('catchments', 'MultiPolygon', 96630),
+              ('gages', 'Point', 96630),
+              ('nhd_waterbodies', 'MultiPolygon', 96630),
+              ('nhdp_waterbodies', 'MultiPolygon', 96630),]
 
 for line in reprojects:
     reproject(line[0], line[1], line[2])
 
 conn.commit()
-            
-        
-
-
