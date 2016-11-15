@@ -24,7 +24,7 @@ def reproject(table_name, geom_type, srid):
     conn.commit()
 
 ### DB Settings ###
-DB = 'data3'
+DB = 'real'
 USER = secret.USER
 PW = secret.PW
 HOST = secret.HOST
@@ -213,9 +213,9 @@ for line in reprojects:
     reproject(line[0], line[1], line[2])
 
 
-
-
-
+###
+# Load NHD/NHD+
+###
 
 data = [('data\\nhd\\HUC_8.shp', 'huc', '-c', 4269),
         ('data\\nhd\\HUC_10.shp', 'huc', '-a', 4269),
@@ -242,7 +242,127 @@ for line in reprojects:
     reproject(line[0], line[1], line[2])
 
 conn.commit()
-            
-        
+
+### Tabulate NLCD by Various Polygons
+
+# Create Tables to Hold Results
+
+cursor.execute("""CREATE TABLE tabulation_tract (value double precision,
+                                                 count integer,
+                                                 square_meters integer,
+                                                 year integer,
+                                                 gisjoin varchar(50));""")
+conn.commit()
+
+cursor.execute("""CREATE TABLE tabulation_tract_generalized (category varchar(50),
+                                                             square_meters integer,
+                                                             year integer,
+                                                             gisjoin varchar(50));""")
+conn.commit()
+
+cursor.execute("""CREATE TABLE tabulation_huc (value double precision,
+                                               count integer,
+                                               square_meters integer,
+                                               year integer,
+                                               huc varchar(12));""")
+
+conn.commit()
+
+cursor.execute("""CREATE TABLE tabulation_huc_generalized (category varchar(50),
+                                                           square_meters integer,
+                                                           year integer,
+                                                           huc varchar(12));""")
+conn.commit()
+
+
+
+# Tabulate Data
+
+nlcd_years = [2001, 2006, 2011]
+for tract_table in ['tract_1990', 'tract_2000', 'tract_2010']:
+    cursor.execute("""SELECT DISTINCT gisjoin FROM %(tract_table)s;""",
+                   {"tract_table": AsIs(tract_table)})
+    census_year_tracts = cursor.fetchall()
+
+    for tract in census_year_tracts:
+        for year in nlcd_years:
+            cursor.execute("""INSERT INTO tabulation_tract (value, count, square_meters, year, gisjoin) (
+                              SELECT (pvc).*,
+                                     (pvc).count * 900 AS square_meters,
+                                     %(year)s AS year,
+                                     %(tract)s AS gisjoin
+                              FROM
+                              (SELECT ST_ValueCount(ST_Clip(rast,
+                                                            1,
+                                                            (SELECT geom FROM %(tract_table)s WHERE gisjoin=%(tract)s),
+                                                            True)) AS pvc FROM %(nlcd_table)s) AS foo
+                              ORDER BY (pvc).value);""",
+                           {"tract": tract,
+                            "year": year,
+                            "nlcd_table": AsIs("nlcd{}".format(year)),
+                            "tract_table": AsIs(tract_table)})
+
+    conn.commit()
+
+    for tract in census_year_tracts:
+        for year in nlcd_years:
+            for category in nlcd.categories:
+                cursor.execute("""INSERT INTO tabulation_tract_generalized (category, square_meters, year, gisjoin) (
+                                  SELECT %(category)s AS category,
+                                         SUM(square_meters) AS square_meters,
+                                         year,
+                                         gisjoin
+                                  FROM tabulation_tract
+                                  WHERE gisjoin = %(gisjoin)s and year = %(year)s AND value IN %(category_values)s
+                                  GROUP BY gisjoin, year);""",
+                               {'category': category,
+                                'category_values': nlcd.categories[category],
+                                'gisjoin': tract,
+                                'year': year})
+
+    conn.commit()
+
+
+
+cursor.execute("""SELECT DISTINCT huc FROM huc;""")
+hucs = cursor.fetchall()
+
+for huc in hucs:
+    for year in nlcd_years:
+        cursor.execute("""INSERT INTO tabulation_huc (value, count, square_meters, year, huc) (
+                          SELECT (pvc).*,
+                                 (pvc).count * 900 AS square_meters,
+                                 %(year)s AS year,
+                                 %(huc)s AS huc
+                          FROM
+                          (SELECT ST_ValueCount(ST_Clip(rast,
+                                                        1,
+                                                        (SELECT geom FROM huc WHERE huc=%(huc)s),
+                                                        True)) AS pvc FROM %(nlcd_table)s) AS foo
+                          ORDER BY (pvc).value);""",
+                       {"huc": huc,
+                        "year": year,
+                        "nlcd_table": AsIs("nlcd{}".format(year))
+                        })
+
+conn.commit()
+
+for huc in hucs:
+    for year in nlcd_years:
+        for category in nlcd.categories:
+            cursor.execute("""INSERT INTO tabulation_huc_generalized (category, square_meters, year, huc) (
+                              SELECT %(category)s AS category,
+                                     SUM(square_meters) AS square_meters,
+                                     year,
+                                     huc
+                              FROM tabulation_huc
+                              WHERE huc = %(huc)s and year = %(year)s AND value IN %(category_values)s
+                              GROUP BY huc, year);""",
+                           {'category': category,
+                            'category_values': nlcd.categories[category],
+                            'huc': huc,
+                            'year': year})
+
+conn.commit()
 
 
