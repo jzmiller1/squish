@@ -40,6 +40,14 @@ conn = psycopg2.connect("dbname=postgres host='{}' user={} password={}".format(H
 conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 cursor = conn.cursor()
 
+### Kill all connections to the target DB ###
+cursor.execute("""SELECT pg_terminate_backend(pg_stat_activity.pid)
+                  FROM pg_stat_activity
+                  WHERE pg_stat_activity.datname = %(db_name)s
+                  AND pid <> pg_backend_pid();""",
+               {'db_name': DB})
+
+### Drop and rebuild the target DB ###
 cursor.execute("""DROP DATABASE IF EXISTS %(db_name)s;""", {'db_name': AsIs(DB)})
 cursor.execute("""CREATE DATABASE %(db_name)s;""", {'db_name': AsIs(DB)})
 del cursor
@@ -50,6 +58,7 @@ conn = psycopg2.connect("dbname={} host='{}' user={} password={}".format(DB, HOS
 cursor = conn.cursor()
 
 cursor.execute("""CREATE EXTENSION IF NOT EXISTS postgis;""")
+cursor.execute("""CREATE EXTENSION IF NOT EXISTS "uuid-ossp";""")
 
 cursor.execute("""INSERT into spatial_ref_sys (srid, auth_name, auth_srid, proj4text, srtext)
                   VALUES ( 96630, 'sr-org', 6630, '+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs ', 'PROJCS["NAD_1983_Albers",GEOGCS["NAD83",DATUM["North_American_Datum_1983",SPHEROID["GRS 1980",6378137,298.257222101,AUTHORITY["EPSG","7019"]],TOWGS84[0,0,0,0,0,0,0],AUTHORITY["EPSG","6269"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9108"]],AUTHORITY["EPSG","4269"]],PROJECTION["Albers_Conic_Equal_Area"],PARAMETER["standard_parallel_1",29.5],PARAMETER["standard_parallel_2",45.5],PARAMETER["latitude_of_center",23],PARAMETER["longitude_of_center",-96],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["meters",1]]')
@@ -176,19 +185,19 @@ loader('data\\census\\spatial\\GA_county_2010_huc8.shp',
        '-c',
        102003)
 
-# ###load block 1990
+### ###load block 1990
 loader('data\\census\\spatial\\GA_blck_1990_huc8.shp',
        "block_1990",
        '-c',
        102003)
 
-# ####load block 2000
+###load block 2000
 loader('data\\census\\spatial\\GA_blck_2000_huc8.shp',
        "block_2000",
        '-c',
        102003)
 
-# ###load block 2010
+###load block 2010
 loader('data\\census\\spatial\\GA_blck_2010_huc8.shp',
        "block_2010",
        '-c',
@@ -207,7 +216,8 @@ reprojects = [('blckgroup_1990', 'MultiPolygon', 96630),
               ('county_2010', 'MultiPolygon', 96630),
               ('block_1990', 'MultiPolygon', 96630),
               ('block_2000', 'MultiPolygon', 96630),
-              ('block_2010', 'MultiPolygon', 96630)]
+              ('block_2010', 'MultiPolygon', 96630)
+              ]
 
 for line in reprojects:
     reproject(line[0], line[1], line[2])
@@ -251,27 +261,31 @@ cursor.execute("""CREATE TABLE tabulation_tract (value double precision,
                                                  count integer,
                                                  square_meters integer,
                                                  year integer,
-                                                 gisjoin varchar(50));""")
+                                                 gisjoin varchar(50),
+                                                 id uuid PRIMARY KEY DEFAULT uuid_generate_v4() );""")
 conn.commit()
 
 cursor.execute("""CREATE TABLE tabulation_tract_generalized (category varchar(50),
                                                              square_meters integer,
                                                              year integer,
-                                                             gisjoin varchar(50));""")
+                                                             gisjoin varchar(50),
+                                                             id uuid PRIMARY KEY DEFAULT uuid_generate_v4() );""")
 conn.commit()
 
 cursor.execute("""CREATE TABLE tabulation_huc (value double precision,
                                                count integer,
                                                square_meters integer,
                                                year integer,
-                                               huc varchar(12));""")
+                                               huc varchar(12),
+                                               id uuid PRIMARY KEY DEFAULT uuid_generate_v4() );""")
 
 conn.commit()
 
 cursor.execute("""CREATE TABLE tabulation_huc_generalized (category varchar(50),
                                                            square_meters integer,
                                                            year integer,
-                                                           huc varchar(12));""")
+                                                           huc varchar(12),
+                                                           id uuid PRIMARY KEY DEFAULT uuid_generate_v4() );""")
 conn.commit()
 
 
