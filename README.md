@@ -26,13 +26,12 @@ GISC 4011K class project
 	
 Unzip data somewhere safe
 In ArcMap added this data:
-Geographic Coordinate System: GCS_North_American_1983 (SRID:4269)
-
-NHD_H_13_GDB.gdb  WBDWBDHU8,WBDHU10, WDBHU12
-NHD_H_13_GDB.gdbHydrographyNHDFlowline, NHDWaterbody
-NHDPlusV21_National_Seamless.gdbNHDEventsGage
-NHDPlusV21_National_Seamless.gdbNHDPlusCatchmentCatchment
-NHDPlusV21_National_Seamless.gdbNHDSnapshotNHDFlowline_Network, NHDWaterbody
+1.*Geographic Coordinate System: GCS_North_American_1983 (SRID:4269)*
+  + NHD_H_13_GDB.gdb  WBDWBDHU8,WBDHU10, WDBHU12
+  + NHD_H_13_GDB.gdbHydrographyNHDFlowline, NHDWaterbody
+  + NHDPlusV21_National_Seamless.gdbNHDEventsGage
+  + NHDPlusV21_National_Seamless.gdbNHDPlusCatchmentCatchment
+  + NHDPlusV21_National_Seamless.gdbNHDSnapshotNHDFlowline_Network, NHDWaterbody
 
 #####Editing within ArcMap:
 In the file “WBDHU8” Selected by attributes Name: Upper Chattahoochee
