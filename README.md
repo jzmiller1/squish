@@ -28,9 +28,9 @@ GISC 4011K class project
   
 ---
 
-####Unzip data somewhere safe 
-In ArcMap added this data:
-1.*Geographic Coordinate System: GCS_North_American_1983 (SRID:4269)* :globe_with_meridians:
+####Unzip data :globe_with_meridians:
+In ArcMap add this data:
+- *Geographic Coordinate System: GCS_North_American_1983 (SRID:4269)* 
   + NHD_H_13_GDB.gdb :arrow_right: WBD :arrow_right: WBDHU8, WBDHU10, WDBHU12
   + NHD_H_13_GDB.gdb :arrow_right: Hydrography :arrow_right: NHDFlowline, NHDWaterbody
   + NHDPlusV21_National_Seamless.gdb :arrow_right: NHDEvents :arrow_right: Gage
