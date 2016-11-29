@@ -39,10 +39,11 @@ In ArcMap added this data:
 ---
 
 #####Editing within ArcMap:
-In the file “WBDHU8” Selected by attributes Name: Upper Chattahoochee
-Create feature layer from selection 
+1. In the file “WBDHU8” Selected by attributes Name: Upper Chattahoochee
+2. Create feature layer from selection 
 All other files listed above were clipped to this new feature layer using the clip analysis tool
-In all the Huc files (8,10, &12) create and or delete fields needed to match all attributes fields in each attribute table (ex: delete field “NONCOUNTRR_K” and “NONCONTRA_A” from Huc_12; Because these fields are empty) (Create a field called HUC: String because some of the counts start at zero which is why one can’t use short or long integer, from all the files) (Replaced the Huc number field for each file with the new field huc)
+3. In all the Huc files (8,10, &12) create and or delete fields needed to match all attributes fields in each attribute table (ex: delete field “NONCOUNTRR_K” and “NONCONTRA_A” from Huc_12; Because these fields are empty) 
+  + (Create a field called HUC: String because some of the counts start at zero which is why one can’t use short or long integer, from all the files) (Replaced the Huc number field for each file with the new field huc)
 
 ---
 
