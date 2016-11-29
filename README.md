@@ -48,7 +48,7 @@ All other files listed above were clipped to this new feature layer using the cl
 
 ---
 
-###Adding to pgadmin(iii) :elephant:
+####Adding to pgadmin(iii) :elephant:
   - Create a database with a name associated with watershed for future reference. Create extension postgis in the sql pane for a spatial feature reference function.
   - Go to the plugins option at the top of the program window.  
     + Select the second option (postGIS shapefile to DBF loader 2.2) 
