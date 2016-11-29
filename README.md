@@ -12,10 +12,10 @@ GISC 4011K class project
 ---
 
 ####Raw Data
-1. Downloaded NHD extracts by state; high resolution; GDB: NHD_H_13_GDB.zip:
-2. Downloaded NHD extracts by state; high resolution; Shape: NHD_H_13_Shape.zip:
-3. *NHD+ data downloaded from*: (https://www.epa.gov/waterdata/nhdplus-national-data)
-4. (Download one file at a time)
+- Downloaded NHD extracts by state; high resolution; GDB: NHD_H_13_GDB.zip:
+- Downloaded NHD extracts by state; high resolution; Shape: NHD_H_13_Shape.zip:
+- *NHD+ data downloaded from*: (https://www.epa.gov/waterdata/nhdplus-national-data)
+- (Download one file at a time)
   + NHDplusV21_nationaldata
   + _GageInfo_05.7z
   + _GageLoc_05.7z
@@ -40,10 +40,10 @@ In ArcMap add this data:
 ---
 
 ####Editing within ArcMap :computer:
-1. In the file “WBDHU8” Selected by attributes Name: Upper Chattahoochee
-2. Create feature layer from selection 
+- In the file “WBDHU8” Selected by attributes Name: Upper Chattahoochee
+- Create feature layer from selection 
 All other files listed above were clipped to this new feature layer using the clip analysis tool
-3. In all the Huc files (8,10, &12) create and or delete fields needed to match all attributes fields in each attribute table (ex: delete field “NONCOUNTRR_K” and “NONCONTRA_A” from Huc_12; Because these fields are empty) 
+- In all the Huc files (8,10, &12) create and or delete fields needed to match all attributes fields in each attribute table (ex: delete field “NONCOUNTRR_K” and “NONCONTRA_A” from Huc_12; Because these fields are empty) 
   + (Create a field called HUC: String because some of the counts start at zero which is why one can’t use short or long integer, from all the files) (Replaced the Huc number field for each file with the new field huc)
 
 ---
