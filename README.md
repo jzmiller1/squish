@@ -10,10 +10,10 @@ GISC 4011K class project
 
 
 ####Raw Data:
-Downloaded NHD extracts by state; high resolution; GDB: NHD_H_13_GDB.zip:
-Downloaded NHD extracts by state; high resolution; Shape: NHD_H_13_Shape.zip:
-NHD+ data downloaded from: https://www.epa.gov/waterdata/nhdplus-national-data
-(Download one file at a time) Downloaded; NHDplusV21_nationaldata
+*Downloaded NHD extracts by state; high resolution; GDB: NHD_H_13_GDB.zip:
+*Downloaded NHD extracts by state; high resolution; Shape: NHD_H_13_Shape.zip:
+*NHD+ data downloaded from: https://www.epa.gov/waterdata/nhdplus-national-data
+*(Download one file at a time) Downloaded; NHDplusV21_nationaldata
 1. _GageInfo_05.7z
 2. _GageLoc_05.7z
 3. _Gage_Smooth_01.7z
