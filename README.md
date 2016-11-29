@@ -51,7 +51,8 @@ All other files listed above were clipped to this new feature layer using the cl
   - Create a database with a name associated with watershed for future reference. Create extension postgis in the sql pane for a spatial feature reference function.
   - Go to the plugins option at the top of the program window.  
     + Select the second option (postGIS shapefile to DBF loader 2.2) 
-    + Navigate to the U: shared drive. Locate the file path. Add the shape files. 
+    + Navigate to the U: shared drive. Locate the file path: ![alt text]https://github.com/valerieclark95/NHDpictures/blob/master/nhd1.png
+    + Add the shape files. 
     *The simplest way is to add the files instead of appending any to each other. Use the srid # 4269 for each shape file. However, if one wanted to add the huc files into one table for easy callment in the future that is an option.  There are several ways to organize the data into tables this is  the users choice.*
   - Transform Projection in pgadmin(iii):
 We need to transform the watershed srid 4269 projection to the NLCD coordinate system(nad 1983, srid, 6630) for simpilicity so that all the  class projects data are in the same projection.  Code used to change the coordinate system is placed in the U drive.
