@@ -1,7 +1,3 @@
-.hi {
-  background: linear-gradient(225deg, lightpink, lightblue);
-  border: thick dotted purple;
-} 
 
 # squish
 GISC 4011K class project
