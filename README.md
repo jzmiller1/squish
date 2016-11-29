@@ -1,7 +1,7 @@
 # squish
 GISC 4011K class project
 
-## National Hydrology Dataset
+## _National Hydrology Dataset_
 
 
 ###Where: NHD(regular)data downloaded from: nhd.usgs.gov/data.html
