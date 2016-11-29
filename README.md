@@ -13,16 +13,16 @@ GISC 4011K class project
 1. Downloaded NHD extracts by state; high resolution; GDB: NHD_H_13_GDB.zip:
 2. Downloaded NHD extracts by state; high resolution; Shape: NHD_H_13_Shape.zip:
 3. NHD+ data downloaded from: https://www.epa.gov/waterdata/nhdplus-national-data
-4. (Download one file at a time) Downloaded; 
-*NHDplusV21_nationaldata
-*_GageInfo_05.7z
-*_GageLoc_05.7z
-*_Gage_Smooth_01.7z
-*_NationalCat_02.7z
-*_National_Seamless_Geodatabase_02.7z
-*_V1_To_V2_Crosswalk_01.7z
-*_WBDSnapshot_FileGDB_08.7c
-*_WDBSnapshot_Shapefile_08.7z
+4. (Download one file at a time)
+	*NHDplusV21_nationaldata
+	*_GageInfo_05.7z
+	*_GageLoc_05.7z
+	*_Gage_Smooth_01.7z
+	*_NationalCat_02.7z
+	*_National_Seamless_Geodatabase_02.7z
+	*_V1_To_V2_Crosswalk_01.7z
+	*_WBDSnapshot_FileGDB_08.7c
+	*_WDBSnapshot_Shapefile_08.7z
 	
 Unzip data somewhere safe
 In ArcMap added this data:
