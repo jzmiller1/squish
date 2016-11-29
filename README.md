@@ -27,7 +27,7 @@ GISC 4011K class project
   
 ---
 
-Unzip data somewhere safe
+#####Unzip data somewhere safe
 In ArcMap added this data:
 1.*Geographic Coordinate System: GCS_North_American_1983 (SRID:4269)*
   + NHD_H_13_GDB.gdb  WBDWBDHU8,WBDHU10, WDBHU12
@@ -38,7 +38,7 @@ In ArcMap added this data:
   
 ---
 
-#####Editing within ArcMap:
+######Editing within ArcMap:
 1. In the file “WBDHU8” Selected by attributes Name: Upper Chattahoochee
 2. Create feature layer from selection 
 All other files listed above were clipped to this new feature layer using the clip analysis tool
@@ -47,7 +47,7 @@ All other files listed above were clipped to this new feature layer using the cl
 
 ---
 
-#####Adding to pgadmin(iii):
+######Adding to pgadmin(iii):
 Create a database with a name associated with watershed for future reference. Create extension postgis in the sql pane for a spatial feature reference function.
 Go to the plugins option at the top of the program window.  Select the second option (postGIS shapefile to DBF loader 2.2) Navigate to the U: shared drive. Locate the file path;  . Add the shape files. The simplest way is to add the files instead of appending any to each other. Use the srid # 4269 for each shape file. However, if one wanted to add the huc files into one table for easy callment in the future that is an option.  There are several ways to organize the data into tables this is  the users choice.
 Transform Projection in pgadmin(iii):
