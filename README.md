@@ -11,7 +11,7 @@ GISC 4011K class project
 
 ---
 
-####Raw Data:
+####Raw Data :computer: :
 1. Downloaded NHD extracts by state; high resolution; GDB: NHD_H_13_GDB.zip:
 2. Downloaded NHD extracts by state; high resolution; Shape: NHD_H_13_Shape.zip:
 3. *NHD+ data downloaded from*: (https://www.epa.gov/waterdata/nhdplus-national-data)
@@ -30,7 +30,7 @@ GISC 4011K class project
 
 #####Unzip data somewhere safe
 In ArcMap added this data:
-1.*Geographic Coordinate System: GCS_North_American_1983 (SRID:4269)*
+1.*Geographic Coordinate System: GCS_North_American_1983 (SRID:4269)* :globe_with_meridians:
   + NHD_H_13_GDB.gdb  WBDWBDHU8,WBDHU10, WDBHU12
   + NHD_H_13_GDB.gdbHydrographyNHDFlowline, NHDWaterbody
   + NHDPlusV21_National_Seamless.gdbNHDEventsGage
