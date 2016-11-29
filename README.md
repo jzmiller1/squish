@@ -28,14 +28,14 @@ GISC 4011K class project
   
 ---
 
-####Unzip data somewhere safe :computer:
+####Unzip data somewhere safe 
 In ArcMap added this data:
 1.*Geographic Coordinate System: GCS_North_American_1983 (SRID:4269)* :globe_with_meridians:
-  + NHD_H_13_GDB.gdb  WBDWBDHU8,WBDHU10, WDBHU12
-  + NHD_H_13_GDB.gdbHydrographyNHDFlowline, NHDWaterbody
-  + NHDPlusV21_National_Seamless.gdbNHDEventsGage
-  + NHDPlusV21_National_Seamless.gdbNHDPlusCatchmentCatchment
-  + NHDPlusV21_National_Seamless.gdbNHDSnapshotNHDFlowline_Network, NHDWaterbody
+  + NHD_H_13_GDB.gdb :arrow_right: WBD :arrow_right: WBDHU8, WBDHU10, WDBHU12
+  + NHD_H_13_GDB.gdb :arrow_right: Hydrography :arrow_right: NHDFlowline, NHDWaterbody
+  + NHDPlusV21_National_Seamless.gdb :arrow_right: NHDEvents :arrow_right: Gage
+  + NHDPlusV21_National_Seamless.gdb :arrow_right: NHDPlusCatchment :arrow_right: Catchment
+  + NHDPlusV21_National_Seamless.gdb :arrow_right: NHDSnapshot :arrow_right: NHDFlowline_Network, NHDWaterbody
   
 ---
 
