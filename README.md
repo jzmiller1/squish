@@ -56,6 +56,7 @@ All other files listed above were clipped to this new feature layer using the cl
     *The simplest way is to add the files instead of appending any to each other. Use the srid # 4269 for each shape file. However, if one wanted to add the huc files into one table for easy callment in the future that is an option.  There are several ways to organize the data into tables this is  the users choice.*
   - Transform Projection in pgadmin(iii):
 We need to transform the watershed srid 4269 projection to the NLCD coordinate system(nad 1983, srid, 6630) for simpilicity so that all the  class projects data are in the same projection.  Code used to change the coordinate system is placed in the U drive.
+![alt text](https://github.com/valerieclark95/NHDpictures/blob/master/nhd2.png "sql file path")
  
 
 
