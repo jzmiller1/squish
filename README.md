@@ -11,7 +11,7 @@ GISC 4011K class project
 
 ---
 
-####Raw Data :computer: :
+####Raw Data
 1. Downloaded NHD extracts by state; high resolution; GDB: NHD_H_13_GDB.zip:
 2. Downloaded NHD extracts by state; high resolution; Shape: NHD_H_13_Shape.zip:
 3. *NHD+ data downloaded from*: (https://www.epa.gov/waterdata/nhdplus-national-data)
@@ -28,7 +28,7 @@ GISC 4011K class project
   
 ---
 
-#####Unzip data somewhere safe
+####Unzip data somewhere safe :computer:
 In ArcMap added this data:
 1.*Geographic Coordinate System: GCS_North_American_1983 (SRID:4269)* :globe_with_meridians:
   + NHD_H_13_GDB.gdb  WBDWBDHU8,WBDHU10, WDBHU12
@@ -39,7 +39,7 @@ In ArcMap added this data:
   
 ---
 
-######Editing within ArcMap:
+####Editing within ArcMap:
 1. In the file “WBDHU8” Selected by attributes Name: Upper Chattahoochee
 2. Create feature layer from selection 
 All other files listed above were clipped to this new feature layer using the clip analysis tool
@@ -48,7 +48,7 @@ All other files listed above were clipped to this new feature layer using the cl
 
 ---
 
-######Adding to pgadmin(iii):
+###Adding to pgadmin(iii):
   - Create a database with a name associated with watershed for future reference. Create extension postgis in the sql pane for a spatial feature reference function.
   - Go to the plugins option at the top of the program window.  
     + Select the second option (postGIS shapefile to DBF loader 2.2) 
