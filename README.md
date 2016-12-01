@@ -2,7 +2,7 @@
 # squish
 GISC 4011K class project
 
-## _National Hydrology Dataset_ :ocean:
+## _National Hydrology Dataset_ :globe_with_meridians:
 
 
 ###Where: NHD(regular)data downloaded from: (nhd.usgs.gov/data.html)
@@ -28,7 +28,7 @@ GISC 4011K class project
   
 ---
 
-####Unzip data :globe_with_meridians:
+####Unzip data 
 In ArcMap add this data:
 - *Geographic Coordinate System: GCS_North_American_1983 (SRID:4269)* 
   + NHD_H_13_GDB.gdb :arrow_right: WBD :arrow_right: WBDHU8, WBDHU10, WDBHU12
@@ -39,7 +39,7 @@ In ArcMap add this data:
   
 ---
 
-####Editing within ArcMap :computer:
+####Editing within ArcMap 
 - In the file “WBDHU8” select by attributes name: Upper Chattahoochee
 - Create feature layer from selection 
 *All other files listed above were clipped to this new feature layer using the clip analysis tool*
