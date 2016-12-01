@@ -2,7 +2,7 @@
 # squish
 GISC 4011K class project
 
-## _National Hydrology Dataset_ :globe_with_meridians:
+## _National Hydrology Dataset_ 
 
 
 ###Where: NHD(regular)data downloaded from: (nhd.usgs.gov/data.html)
@@ -48,7 +48,7 @@ In ArcMap add this data:
 
 ---
 
-####Adding to pgadmin(iii) :elephant:
+####Adding to pgadmin(iii)
   - Create a database with a name associated with watershed for future reference. 
   - Create extension postgis in the sql pane for a spatial feature reference function.
   - Go to the plugins option at the top of the program window.  
