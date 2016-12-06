@@ -1,6 +1,98 @@
 # squish
 GISC 4011K class project
 
+## Data Sources
+
+### National Hydrology Dataset
+
+####Source Summary
+  -Where: NHD(regular)data downloaded from: (nhd.usgs.gov/data.html)
+  
+  -Last modified: Thursday, 18-Aug-2016 11:08:23 EDT
+
+---
+
+####Data Structure: 
+point, line, and polygon shape files
+
+---
+
+####Spatial Information
+
+##### Extent
+- The Extent of the NHD/NHD+ information contains all the watersheds in each state of the USA, including the Phillipines, Guam, Puerto Rico, Northern Mariana, and American Samoa. For the NHD/NHD+ data, the NED (National Elevation Dataset) Snapshots were used to formulate the HUC (Hydrologic Unit Code) data. The HUC data measures watershed boundaries within the domestic continental united states. For this particular project, we separated the HUC 8, 10, and 12 data for The Upper Chattahoochee area.
+
+
+##### Geographic Coordinate System
+- We transformed the NDH/NHD+ data from GCS_North_American_1983 (SRID:4269) to NAD 1983 (SRID:6630). It was necessary for us to transform the projection to this coordinate system in order to more accurately represent the spatial features of the hydrology dataset to the census, tranformation, and NLCD data.
+  
+---
+
+####*What is available in the Loader*
+
+-NHDArea.shx
+
+-NHDFlowline.shx
+
+-NHDLine.shx
+
+-NHDPoint.shx
+
+-NHDPointEventFC.shx
+
+-WBDHU2.shx
+
+-WBDHU4.shx
+
+-WBDHU6.shx
+
+-WBDHU8.shx
+
+-WBDHU10.shx
+
+-WBDHU12.shx
+
+-WBDLine.shx
+
+
+---
+
+####Directions for future work
+- *NHD+ data download from*: (https://www.epa.gov/waterdata/nhdplus-national-data)
+- Download NHD extracts by state; high resolution; GDB: NHD_H_13_GDB.zip:
+- Download NHD extracts by state; high resolution; Shape: NHD_H_13_Shape.zip:
+- (Download one file at a time)
+  + NHDplusV21_nationaldata
+  + _GageInfo_05.7z
+  + _GageLoc_05.7z
+  + _Gage_Smooth_01.7z
+  + _NationalCat_02.7z
+  + _National_Seamless_Geodatabase_02.7z
+  + _V1_To_V2_Crosswalk_01.7z
+  + _WBDSnapshot_FileGDB_08.7c
+  + _WDBSnapshot_Shapefile_08.7z
+  + NHD_H_13_GDB.gdb :arrow_right: WBD :arrow_right: WBDHU8, WBDHU10, WDBHU12
+  + NHD_H_13_GDB.gdb :arrow_right: Hydrography :arrow_right: NHDFlowline, NHDWaterbody
+  + NHDPlusV21_National_Seamless.gdb :arrow_right: NHDEvents :arrow_right: Gage
+  + NHDPlusV21_National_Seamless.gdb :arrow_right: NHDPlusCatchment :arrow_right: Catchment
+  + NHDPlusV21_National_Seamless.gdb :arrow_right: NHDSnapshot :arrow_right: NHDFlowline_Network, NHDWaterbody
+- In the file “WBDHU8” select by attributes name: Upper Chattahoochee
+- Create feature layer from selection 
+*All other files listed above were clipped to this new feature layer using the clip analysis tool*
+- In all the HUC files (8,10, & 12) create and or delete fields needed to match all attributes fields in each attribute table (ex: delete field “NONCOUNTRR_K” and “NONCONTRA_A” from HUC_12; Because these fields are empty) 
+  + (Create a field called HUC: String because some of the counts start at zero which is why one can’t use short or long integer, from all the files) (Replaced the Huc number field for each file with the new field HUC)
+####Adding to pgadmin(iii)
+  - Create a database with a name associated with watershed for future reference. 
+  - Create extension postgis in the sql pane for a spatial feature reference function.
+  - Go to the plugins option at the top of the program window.  
+    + Select the second option (postGIS shapefile to DBF loader 2.2) 
+    + Navigate to the U: shared drive. Locate the file path.
+    + Add the shape files. 
+    *The simplest way is to add the files instead of appending any to each other. Use the srid # 4269 for each shape file. However, if one wanted to add the huc files into one table for easy callment in the future that is an option.  There are several ways to organize the data into tables this is  the users choice.*
+  - Transform Projection in pgadmin(iii).
+  
+---
+
 ## Database Setup/Schema
 After the loader has finished, the database will contain 30 different tables.  The breakdown of those tables is as follows:
   + blckgroup_1990 - polygon information for the 1990 block groups in the census data
