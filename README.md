@@ -5,9 +5,10 @@ GISC 4011K class project
 ## _National Hydrology Dataset_ 
 
 
-###Where: NHD(regular)data downloaded from: (nhd.usgs.gov/data.html)
-###Last modified: Thursday, 18-Aug-2016 11:08:23 EDT
-###Structure of the data: point, line, and polygon shape files
+###Source Summary
+###  -Where: NHD(regular)data downloaded from: (nhd.usgs.gov/data.html)
+###  -Last modified: Thursday, 18-Aug-2016 11:08:23 EDT
+###Data Structure: point, line, and polygon shape files
 
 ---
 
