@@ -3,8 +3,19 @@ GISC 4011K class project
 
 ##Upper Chattahoochee Watershed
 
-####Abstract:
+## Abstract:
 The goal of this project is to transfer Census, National Land Cover Database (NLCD), National Hydrographic Dataset (NHD) and Transport data pertaining to the Upper Chattahoochee Watershed and  to arrange them into a systematic form. Sources for the data were extracted from the National Historical Geographic Information System(NHGIS) database, NLCD hosted by the Multi-Resolution Land Characteristics (MRLC) database, NHD, and the TIGER database from the Census website. The methods include acquiring the data, clipping the raster data, using the Windows command line to covert the files from raster to SQL, in which presented problems for the transportation data. The SQL files are loaded into the database, using a python database loader which will push the data into a tabular form.
+
+## Study Area
+This project gathered data about the Upper Chattahoochee watershed. The watershed intersects many different counties and the Chattahoochee river is the main tributary river to Lake Lanier as well as a major fresh water source to Georgia, Alabama, and Florida. 
+
+### Counties Involved 
+Union, Towns, Lumpkin, White, Habersham, Hall, Dawson, Forsyth, Gwinnett, Fulton, Cherokee, Cobb, and Dekalb 
+
+### Study Area Map
+The map pictured below is not a completly depiction of the study area, It represents the upper section of the Upper Chattahoochee watershed above the Buford Dam and doesn't display some of the lower counties in the study area.  
+
+![StudyAreaMap](https://raw.githubusercontent.com/jzmiller1/squish/master/readme_static/UpperUpperChattahoocheeCountiesLandcover_170k_ANSID.jpg)
 
 ## Data Sources
 
