@@ -96,7 +96,29 @@ point, line, and polygon shape files
     *The simplest way is to add the files instead of appending any to each other. Use the srid # 4269 for each shape file. However, if one wanted to add the huc files into one table for easy callment in the future that is an option.  There are several ways to organize the data into tables this is  the users choice.*
   - Transform Projection in pgadmin(iii).
   
----
+## Loader
+In order to get the different types of data sets that were gathered into the repository we had to create a database and insert the data using a loader. 
+The loader was a Python program created to automate the process.
+
+### Python Module Used
+The loader program, rundown.py, utilizes several Python libraries.  The standard library modules utilized by rundown.py include the os and sub-process modules which 
+require no installation outside of the installation of Python itself.  The loader also requires the third party Python library psycopg2 to connect and interface 
+with PostgreSQL databases. [Psycopg2](https://pypi.python.org/pypi/psycopg2) is available for download or installation through the pip package manager and the Python Package Index.  
+
+The final modules used by the loader are the nlcd and secret modules created specifically for this project.  The nlcd module has Python 
+data structures containing data from the MRLC's NLCD and the secret module is a module that is not tracked in the project repository that contains sensitive information
+that should not be shared on GitHub such as the database username, password and host.
+
+### How the Loader Works
++ The tools used in order for the loader to properly run are raster2pgsql and shp2pgsql. 
++ The loader creates a database which is automatically loaded into PGAdminIII. 
++ The loader also connects to the basic directory(BASE_DIR) which contains the data intended for the repository.
++ In order to streamline the uploading process, the loader will automatically drop database files when new ones are edited or created. 
++ The loader spatially enables the database by inserting the correct SRIDs which is used by the NLCD raster data and the spatial census data.
++ The SRIDs or spatial referance idenifier used are 96630 for the NLCD raster data and 102003 for the spatial census data. 
++ SRIDs obtained from cross-referancing the projection in the metadata with online references(spatialreferances.org). 
++ The loader also enables the extension for the UUID or Universally Unique Identifier [uuid-ossp].
+
 
 ## Database Setup/Schema
 After the loader has finished, the database will contain 30 different tables.  The breakdown of those tables is as follows:
