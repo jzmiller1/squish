@@ -330,3 +330,14 @@ After the loader has finished, the database will contain 30 different tables.  T
   + tract_1990_pop - tabular information for the 1990 tracts in the census data
   + tract_2000 - polygon information for the 2000 tracts in the census data
   + tract_2010 - polygon information for the 2010 tracts in the census data
+  
+### Applications 
+#### 1 
+A community or government entity may be interested in keeping a certian natural landcover percentage for a watershed. 
+This could be because to problems with runoff, sedimentary pollution, and low water quality due to  water not being able to sink into the soil prorperly. 
+One could not only see the percentage of land cover per HUC boundary, but also the correlation between the natural land cover and growth of population 
+and human infastructure. They might compare transportation data with the NLCD sets to see if percentage of area that roads occupy is acceptable for the 
+health of the environment. 
+Entities that might interested in this website: Government(Local, State, and Federal), Land developers, city planners, the EPA, watch dog adgencies and Universities
+If a watch dog adgency was very ambitious they might compare developement and land cover data to habitats of endangered species and streams that are 303 D(extremely
+polluted)listed by the EPA. 
