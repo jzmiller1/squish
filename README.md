@@ -4,10 +4,24 @@ GISC 4011K class project
 ##Upper Chattahoochee Watershed
 
 ####Abstract:
-   The goal of this project is to transfer Census, National Land Cover Database (NLCD), National Hydrographic Dataset (NHD) and Transport data pertaining to the Upper Chattahoochee Watershed and  to arrange them into a systematic form. Sources for the data were extracted from the National Historical Geographic Information System(NHGIS) database, NLCD hosted by the Multi-Resolution Land Characteristics (MRLC) database, NHD, and the TIGER database from the Census website. The methods include acquiring the data, clipping the raster data, using the Windows command line to covert the files from raster to SQL, in which presented problems for the transportation data. The SQL files are loaded into the database, using a python database loader which will push the data into a tabular form.
+The goal of this project is to transfer Census, National Land Cover Database (NLCD), National Hydrographic Dataset (NHD) and Transport data pertaining to the Upper Chattahoochee Watershed and  to arrange them into a systematic form. Sources for the data were extracted from the National Historical Geographic Information System(NHGIS) database, NLCD hosted by the Multi-Resolution Land Characteristics (MRLC) database, NHD, and the TIGER database from the Census website. The methods include acquiring the data, clipping the raster data, using the Windows command line to covert the files from raster to SQL, in which presented problems for the transportation data. The SQL files are loaded into the database, using a python database loader which will push the data into a tabular form.
 
 ## Data Sources
 
+### National Land Cover Dataset
+
+#### Source Summary 
+The National Land Cover Database (NLCD) provides spatial and descriptive data for the different types of land cover from Landsat satellite imagery. The NLCD data products are created by the Multi-Resolution Land Characteristics (MRLC) Consortium, which is a partnership of Federal agencies led through the U.S Geological Survey. The NLCD has collected national land cover data for the years of 1992, 2001, 2006, and 2011. The NLCD data products are available for free download with no charge to the public through the MRLC website. The primary objective of the MRLC NLCD is to ultimately provide our nation with complete and consistent information on the land cover. The MRLC-NLCD releases the national land cover datasets usually on a 5-year product period. For more information on the MRLC Consortium and the federal agencies involved visit the [main website](http://www.mrlc.gov/).
+   
+#### Data Structure
+The NLCD is in raster format collected through the Landsat satellite and is downloaded through the MRLC- NLCD, led by the U.S Geological Survey. The NLCD data is downloaded as a zip file for each desired year, which will need to be extracted. The NLCD data for the entire U.S in the years of 2001, 2006, and 2011 all use the same Land Cover Class Descriptions, which is modified from the Anderson Land Cover Classification System. The attribute table for each of the NLCD year datasets has a Value field (Land Cover Class Code Value), a Count field (how many pixels represent that land cover), a Land Cover Class field (text description of the land cover), and more. This data collected by Landsat has a spatial resolution of 30 meters. For more detailed descriptions on the dataset, the data download comes with a metadata file for each NLCD year. 
+
+#### Spatial Information
+The map projection used for the NLCD data (2001, 2006, and 2011) is the Albers Conical Equal Area. The horizontal datum used is the North American Datum of 1983 and the ellipsoid used is the Geodetic Reference System 80. 
+
+#### What is avaliable in the Loader
+The NLCD data for 2001, 2006, and 2011 was successful when clipping the NLCD data for the entire U.S to the HUC12 Upper Chattahoochee watershed boundary. The loader also tabulates the land cover data for all 2001, 2006, and 2011 datasets to the different sets of data within the area of interest for this project, such as the counties, census tracts, block groups, blocks, and the smaller hydrologic unit codes. 
+   
 ### National Hydrology Dataset
 
 ####Source Summary
