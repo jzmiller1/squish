@@ -1,6 +1,11 @@
 # squish
 GISC 4011K class project
 
+##Upper Chattahoochee Watershed
+
+####Abstract:
+   The goal of this project is to transfer Census, National Land Cover Database (NLCD), National Hydrographic Dataset (NHD) and Transport data pertaining to the Upper Chattahoochee Watershed and  to arrange them into a systematic form. Sources for the data were extracted from the National Historical Geographic Information System(NHGIS) database, NLCD hosted by the Multi-Resolution Land Characteristics (MRLC) database, NHD, and the TIGER database from the Census website. The methods include acquiring the data, clipping the raster data, using the Windows command line to covert the files from raster to SQL, in which presented problems for the transportation data. The SQL files are loaded into the database, using a python database loader which will push the data into a tabular form.
+
 ## Data Sources
 
 ### National Hydrology Dataset
