@@ -120,7 +120,129 @@ point, line, and polygon shape files
     + Add the shape files. 
     *The simplest way is to add the files instead of appending any to each other. Use the srid # 4269 for each shape file. However, if one wanted to add the huc files into one table for easy callment in the future that is an option.  There are several ways to organize the data into tables this is  the users choice.*
   - Transform Projection in pgadmin(iii).
-  
+
+### Transportation Data
+
+#### Source Summary
+Our data came exclusively from the Government’s Census Bureau Topologically Integrated Geographic Encoding and Referencing Road (TIGER) database.
+
+* TIGER Site
+  * Data Structure
+    * 13 Counties that are included in our area of study, the Upper Chattahoochee watershed
+      * Cherokee
+      * Cobb
+      * Dawson
+      * Dekalb
+      * Forsyth
+      * Fulton
+      * Gwinnett
+      * Habersham
+      * Hall
+      * Lumpkin
+      * Towns
+      * Union
+      * White
+    * 2 Sets of the data by year
+      * 2011
+      * 2016
+    * What does it include?
+      * The Tiger road data is a line shape file that includes the street name, road type and the state/county’s ID.
+      * Contains Primary and Secondary road data
+    * Spatial Information
+      * North American Datum of 1983
+      * Uses this Geographical Coordinate system for all data
+    * Python Loader
+      * We edited the loader to work for transportation data
+* ### Import Census Tracts to Database ###
+  * roads_2011 = 'data\\transportation_2011.shp'
+  * roads_2016 = 'data\\transportation_2016.shp'
+      * cursor.execute("""CREATE EXTENSION IF NOT EXISTS pgrouting;""")
+* Set the correct spatial reference system for our data (Code too long to post)
+* shp2pgsql_command = " ".join([shp2pgsql_path, "-c", "-s 94269", '-W latin1', os.path.join(BASE_DIR, roads_2011), "roads2011"])
+  * Upon running, it crashed and did not work
+      * This is due to the size of the data, using a smaller data set proved to work fine
+      * QGIS /pgRouting Procedure
+  * 1.	Open PostGIS Shapefile and DBF loader 2.2
+  * 2.	Set the SRID as 4269 and import the road data to the database
+  * 3.	Create postgis and pgrouting extension to the database. 
+      * CREATE EXTENSION postgis;
+      * CREATE EXTENSION pgrouting;
+  * 4.	Add ‘source’ and ‘target’ column and create topology for the road data
+      * ALTER TABLE roaddata ADD COLUMN 'source' integer;
+      * ALTER TABLE roaddata ADD COLUMN 'target' integer;
+  * SELECT pgr_createTopology('roaddata', 0.00001, 'geom', 'gid');
+  * 5.	Fails to create topology
+  * 6.	Attempt pgRouting via QGIS pgRouting extension tested on two random points and it fails to return a value
+* PSQL Procedure
+  * 1.	Zip the road data and upload to dropbox 
+  * 2.	Dl link: https://www.dropbox.com/s/ji9y05ae92y5f2y/2016%2B2011.zip?dl=0
+  * 3.	Go to the console window on the Vultr machine and log in
+  * 4.	In the command line, install the “unzip” apt
+  * 5.	cmd: sudo apt-get install unzip
+  * 6.	Install the “postgis” apt
+  * 7.	cmd: sudo apt-get install postgis
+  * 8.	Download the road data from dropbox
+  * 9.	cmd: wget “https://www.dropbox.com/s/ji9y05ae92y5f2y/2016%2B2011.zip?dl=0”
+  * 10.	Unzip the road data
+  * 11.	cmd: unzip 2016+2011.zip?dl=0 –d /home
+  * 12.	Create an output folder and name it “output_20XX”
+  * 13.	cmd: cd /home
+      * cd /home/2011
+      * mkdir output_2011
+  * 14.	Change directory to the folder where the .shp file locate (hint. Use “ls”)
+  * 15.	Use “shp2pgsql” tool that is initially installed with pgrouting to convert .shp file to a table (.sql file)
+  * 16.	cmd: shp2pgsql tl_2011_13057_roads.shp cherokee > /home/2011/output_2011/Cherokee_2011_13057_roads.sql
+  * 17.	Change directory back to root
+  * 18.	Now, we are going to import the .sql file into the database
+  * 19.	cmd: su postgres
+  * 20.	In pgadmin III, create a new database (In our case, we named it “project”)
+  * 21.	In the command line, type:
+      * psql
+      * /connect project
+      * create extension postgis;
+      * create extension pgrouting;
+  * 22.	Import the .sql file to the database
+  * 23.	cmd: psql –h 45.32.210.174 –d project –U postgres –f /home/2011/output_2011/Cherokee_2011_13057_roads.sql
+* ArcMap Procedure
+  * 1.	Open the Road Data up into ArcMap(One county at a time)
+  * 2.	Run the “Rebuild Connectivity” tool
+  * 3.	Fill out the pop up window accordingly for the dataset(Spatial Reference System, buffer size, etc)
+  * 4.	Run the tool, it finishes successfully
+  * 5.	Go back to QGIS and run pgRouting on the corrected shapefile, it still fails
+  * 6.	Test multiple other parameters in the “Rebuild Connectivity” tool, continues to fail after each attempt
+* Georgia Clearing House Procedure(Successful Attempt)
+  * 1.	Download Data from Georgia Clearing House
+  * 2.	Open QGIS
+  * 3.	Import the road data and export that by eliminating the Z-dimension (Elevation) and M-dimension(Route) data.
+  * 4.	Open PostGIS Shapefile and DBF loader 2.2 in pgAdminIII
+  * 5.	Set the SRID as 4269 and import the road data to the database
+  * 6.	Create postgis and pgrouting extension to the database. 
+      * CREATE EXTENSION postgis;
+      * CREATE EXTENSION pgrouting;
+  * 7.	Add ‘source’ and ‘target’ column and create topology for the road data
+      * ALTER TABLE roaddata ADD COLUMN 'source' integer;
+      * ALTER TABLE roaddata ADD COLUMN 'target' integer;
+      * SELECT pgr_createTopology('roaddata', 0.00001, 'geom', 'gid');
+  * 8.	Run the query that returns a set of pgr_costResult (seq, id1, id2, cost) rows, that make up a path
+  * 9.	In order to visualize the result, we can display the path in QGIS. Open QGIS and connect to the Postgres database
+  * 10.	Open the DB Manager and open the SQL window
+  * 11.	Run the query and export the visual representation in QGIS
+      * SELECT seq, id1 AS node,id2 AS edge, cost, geom FROM pgr_dijkstra('
+      SELECT gid AS id, 
+          source, 
+          target, 
+          minute::float8 AS cost
+   FROM roaddata',
+117232,
+90731,
+false,
+false) as route JOIN roaddata on roaddata.gid = route.id2
+* Conclusion
+  * For the future, don’t use Tiger data for any pgRouting or Network Analysis, the data set is fragmented and does not work properly, even after spatial correction.
+      * Fragmentation refers to the issue that the line features that represent the roads within the shapefile do not connect with one another at a vertex where a connection should be present.
+      * Georgia Clearing House data did not have this issue and worked correctly using the exact same procedure. 
+•	Georgia Clearing House
+
 ## Loader
 In order to get the different types of data sets that were gathered into the repository we had to create a database and insert the data using a loader. 
 The loader was a Python program created to automate the process.
