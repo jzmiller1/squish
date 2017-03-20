@@ -59,10 +59,13 @@ The National Land Cover Database (NLCD) provides spatial and descriptive data fo
 The NLCD is in raster format collected through the Landsat satellite and is downloaded through the MRLC- NLCD, led by the U.S Geological Survey. The NLCD data is downloaded as a zip file for each desired year, which will need to be extracted. The NLCD data for the entire U.S in the years of 2001, 2006, and 2011 all use the same Land Cover Class Descriptions, which is modified from the Anderson Land Cover Classification System. The attribute table for each of the NLCD year datasets has a Value field (Land Cover Class Code Value), a Count field (how many pixels represent that land cover), a Land Cover Class field (text description of the land cover), and more. This data collected by Landsat has a spatial resolution of 30 meters. For more detailed descriptions on the dataset, the data download comes with a metadata file for each NLCD year. 
 
 #### Spatial Information
+##### Extent
+The NLCD data once downloaded has all the national land cover data for the whole United States. Before using the Loader, the NLCD data for each of the years (2001, 2006, 2011) needs to be clipped to the area of interest boundary, which is the HUC12 Upper Chattahoochee watershed. 
+##### Coordinate System
 The map projection used for the NLCD data (2001, 2006, and 2011) is the Albers Conical Equal Area. The horizontal datum used is the North American Datum of 1983 and the ellipsoid used is the Geodetic Reference System 80. 
 
-#### What is avaliable in the Loader
-The NLCD data for 2001, 2006, and 2011 was successful when clipping the NLCD data for the entire U.S to the HUC12 Upper Chattahoochee watershed boundary. The loader also tabulates the land cover data for all 2001, 2006, and 2011 datasets to the different sets of data within the area of interest for this project, such as the counties, census tracts, block groups, blocks, and the smaller hydrologic unit codes. 
+#### What is available in the Loader
+The land cover data for 2001, 2006, and 2011 was successful when loading the clipped NLCD data for the HUC12 Upper Chattahoochee watershed boundary. The loader also tabulates the land cover data for all 2001, 2006, and 2011 datasets to the different sets of data within the area of interest for this project, such as the counties, census tracts, block groups, blocks, and the smaller hydrologic unit codes. 
    
 ### National Hydrology Dataset
 
