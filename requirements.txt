@@ -1,2 +1,2 @@
-nlcd==0.1
+-e git://github.com/jzmiller1/nlcd.git@HEAD#egg=nlcd
 psycopg2==2.6.2

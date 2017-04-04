@@ -106,7 +106,8 @@ cursor.execute("""CREATE SCHEMA %(data_schema)s;""",
 conn.commit()
 
 ### Load NLCD Data
-nlcd_data = [('data\\nlcd\\nlcd_2001_landcover_2011_edition_2014_03_311_huc8.tif', '2001'),
+nlcd_data = [('data\\nlcd\\area14_changeproduct5k_111907_huc8.tif', '1992'),
+             ('data\\nlcd\\nlcd_2001_landcover_2011_edition_2014_03_311_huc8.tif', '2001'),
              ('data\\nlcd\\nlcd_2006_landcover_2011_edition_2014_03_311_huc8.tif', '2006'),
              ('data\\nlcd\\nlcd_2011_landcover_2011_edition_2014_03_311_huc8.tif', '2011')]
 
@@ -129,7 +130,7 @@ cursor.execute("""CREATE TABLE landcover (year integer,
                                           CONSTRAINT enforce_srid_rast CHECK (st_srid(rast) = 96630));""")
 conn.commit()
 
-for year in nlcd.nlcd_years:
+for year in nlcd.years:
     cursor.execute("""INSERT INTO landcover (year, type, metadata, rast)
                       SELECT %(year)s AS year, 'NLCD' AS type, '{}' AS metadata, rast
                       FROM %(nlcd_table)s;""",
@@ -262,7 +263,9 @@ cursor.execute("""CREATE TABLE units (year integer,
 conn.commit()
 
 
-unit_tables = ['county_1990', 'county_2000', 'county_2010', 'tract_1990',
+unit_tables = ['county_1990',
+               'county_2000', 'county_2010',
+               'tract_1990',
                'tract_2000', 'tract_2010', 'blckgroup_1990', 'blckgroup_2000',
                'blckgroup_2010'
                ]
@@ -310,7 +313,7 @@ cursor.execute("""SELECT DISTINCT id FROM units;""",
 
 units = cursor.fetchall()
 for unit_id in units:
-    for year_nlcd in nlcd.nlcd_years:
+    for year_nlcd in nlcd.years:
         cursor.execute("""INSERT INTO tabulations (value, count, year, level, unit) (
                               SELECT value,
                                      count,
@@ -334,15 +337,18 @@ for unit_id in units:
                                GROUP BY value) AS valuecounts);""",
                        {
                         "year": year_nlcd,
-                        "nlcd_table": AsIs("{}.nlcd{}".format(DATA_SCHEMA, year_nlcd)),
                         "unit_id": unit_id[0]
                         })
 
         conn.commit()
 
 for unit_id in units:
-    for year in nlcd.nlcd_years:
-        for category in nlcd.categories:
+    for year in nlcd.years:
+        if year == 1992:
+            categories = nlcd.categories_1992_change
+        else:
+            categories = nlcd.categories
+        for category in categories:
             cursor.execute("""INSERT INTO tabulations (value, count, year, level, unit) (
                               SELECT %(category)s AS category,
                                      SUM(count) AS count,
@@ -353,11 +359,16 @@ for unit_id in units:
                               WHERE unit = %(unit_id)s and year = %(year)s AND value IN %(category_values)s
                               GROUP BY unit, year);""",
                            {'category': category,
-                            'category_values': nlcd.categories[category],
+                            'category_values': categories[category],
                             'year': year,
                             "unit_id": unit_id[0]
                             }
                            )
+            conn.commit()
+
+# Clean up Tabulations to remove Level II 1992 data from the change product
+cursor.execute("""DELETE FROM tabulations
+                  WHERE level = 'II' AND year = 1992;""")
 conn.commit()
 
 
